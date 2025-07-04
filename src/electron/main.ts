@@ -3,7 +3,7 @@ import path from 'path';
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
-    width: 500,
+    width: 900,
     height: 720,
     resizable: true,
     webPreferences: {
