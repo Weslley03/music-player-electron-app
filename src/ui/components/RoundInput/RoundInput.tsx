@@ -35,6 +35,8 @@ const RoundInput: React.FC<RoundInputProps> = ({
         type="text"
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
+        spellCheck="false"
+        autoComplete="off"
       />
       <div className={styles.XIcon} onClick={clearValue}>
         {displayXIcon()}
