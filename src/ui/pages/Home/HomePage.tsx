@@ -1,10 +1,12 @@
-import HeaderGlobal from "../../components/HeaderGlobal/HeaderGlobal";
+import GenericLayout from "../../layouts/GenericLayout";
 
 const HomePage = () => {
   return (
-    <>
-      <HeaderGlobal />
-    </>
+    <GenericLayout>
+      <div>
+        <p> HomePage! </p>
+      </div>
+    </GenericLayout>
   )
 };
 

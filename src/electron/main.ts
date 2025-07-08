@@ -5,7 +5,7 @@ app.on('ready', () => {
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 720,
-    resizable: true,
+    resizable: false,
     webPreferences: {
       nodeIntegration: false,
     }
