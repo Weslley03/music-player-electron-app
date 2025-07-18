@@ -16,6 +16,6 @@ html, body {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--dark-300);
+  background-color: var(--dark-100);
   color: white;
 }
