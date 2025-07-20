@@ -1,9 +1,5 @@
 import React from 'react';
-
-interface IconProps {
-  size?: number | string;
-  color?: string;
-}
+import type { IconProps } from '../types/IconProps';
 
 const HomeIcon: React.FC<IconProps> = ({ size = 24, color = 'currentColor' }) => {
   return (
