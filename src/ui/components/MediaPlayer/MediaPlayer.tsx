@@ -10,18 +10,9 @@ import colors from '../../utils/colors';
 import VolumeIcon from '../../icons/VolumeIcon';
 import VolumeOffIcon from '../../icons/VolumeOffIcon';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
-import musicMock from '../../../../public/mockData/musics/dois-dias-mc-kako-12345678.mp3'
 import cardImageMock from '../../assets/userImage.jpeg'
 import type { CardType } from '../../types/MyLibrary/CardType';
-
-const cardMock = {
-  "id": 1,
-  "img": cardImageMock,
-  "title": "Dois dias",
-  "description": "MC Kako",
-  "createdAt": "2025-07-12T10:23:00Z",
-  "type": 'album' as CardType
-}
+import { useAppSelector } from '../../hooks/redux-hooks';
 
 const MediaPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -31,6 +22,7 @@ const MediaPlayer = () => {
   const [isRepeating, setIsRepeating] = useState(false);
   const [volume, setVolume] = useState(1);
   const volumeSliderRef = useRef<HTMLInputElement>(null);
+  const currentMusic = useAppSelector((state) => state.currentMusic);
 
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(event.target.value);
@@ -97,7 +89,7 @@ const MediaPlayer = () => {
   const togglePlay = () => {
     const audio = audioRef.current;
 
-    if (!audio) return;
+    if (!audio || currentMusic.isValid === false) return;
 
     if (isPlaying) {
       audio.pause();
@@ -134,20 +126,21 @@ const MediaPlayer = () => {
       <div className={styles.content}>
         <audio
           ref={audioRef}
-          src={musicMock}
+          src={currentMusic.src}
           preload="metadata"
         />
 
         <div className={styles.currentMusic}>
-          <CardOptionMyLibrary
-            key={`${cardMock.id}-${cardMock.title.trim()}`}
+          {currentMusic.isValid !== false && (<CardOptionMyLibrary
+            key={`${currentMusic.id}-${currentMusic.title.trim()}`}
             imgSrc={cardImageMock}
-            title={cardMock.title}
-            description={cardMock.description}
-            type={cardMock.type}
+            title={currentMusic.title}
+            description={currentMusic.description}
+            type={currentMusic.type as CardType}
             hoverColor=''
             reducedUI={false}
           />
+          )}
         </div>
 
         <div className={styles.controls}>

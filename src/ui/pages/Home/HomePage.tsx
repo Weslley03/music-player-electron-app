@@ -1,23 +1,35 @@
 import GenericLayout from "../../layouts/GenericLayout";
 import styles from './HomePage.module.scss';
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { decrement, increment } from "../../reducers/counterReducer";
+import { useAppDispatch } from "../../hooks/redux-hooks";
+import { updateCurrentMusic, type currentMusicState } from "../../reducers/currentMusicReducer";
+import api from "../../services/api";
+import type { MusicsResponse } from "../../types/music";
 
 const HomePage = () => {
-  const count = useAppSelector((state) => state.count);
   const dispatch = useAppDispatch();
+
+  const getMusic = async () => {
+    try {
+      const response = await api.get<MusicsResponse>('/musics.json');
+      const musicsData = [...response.data.musics];
+      return musicsData.find(music => music.id === 2); //mocking selection of a single music
+    } catch (err) {
+      console.error(err)
+    };
+  };
+
+  const updateMusic = async () => {
+    const music = await getMusic();
+    dispatch(updateCurrentMusic(music as currentMusicState))
+  };
 
   return (
     <GenericLayout>
       <div className={styles.mainContainer}>
         <p> HomePage! </p>
         <div>
-          <h2>Count: {count}</h2>
           <div style={{ display: 'flex', gap: '12px' }}>
-            <button onClick={() => dispatch(increment(5))}>increment five</button>
-            <button onClick={() => dispatch(increment(1))}>increment</button>
-            <button onClick={() => dispatch(decrement(1))}>decrement</button>
-            <button onClick={() => dispatch(decrement(5))}>decrement five</button>
+            <button onClick={updateMusic}> update current music </button>
           </div>
         </div>
       </div>

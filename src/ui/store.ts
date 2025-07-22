@@ -1,7 +1,11 @@
-import { createStore } from 'redux';
-import { counterReducer } from './reducers/counterReducer';
+import { combineReducers, createStore } from 'redux';
+import { currentMusicReducer } from './reducers/currentMusicReducer';
 
-export const store = createStore(counterReducer);
+const rootReducer = combineReducers({
+  currentMusic: currentMusicReducer,
+});
+
+export const store = createStore(rootReducer);
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

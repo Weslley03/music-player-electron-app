@@ -1,12 +1,12 @@
 {
-  "albums": [
+  "musics": [
     {
       "id": 1,
       "img": "./assets/mockImage.jpeg",
       "title": "SÓ MENINA LINDA",
       "description": "Ryan SP",
       "createdAt": "2025-07-12T10:23:00Z",
-      "src": "./musics/so-menina-linda-ryan-sp-12345678.mp3",
+      "src": "/mockData/musics/so-menina-linda-ryan-sp-12345678.mp3",
       "type": "music"
     },
     {
@@ -15,7 +15,7 @@
       "title": "Dois dias",
       "description": "MC Kako",
       "createdAt": "2025-07-12T10:23:00Z",
-      "src": "./musics/dois-dias-mc-kako-12345678.mp3",
+      "src": "/mockData/musics/dois-dias-mc-kako-12345678.mp3",
       "type": "music"
     }
   ]
