@@ -29,29 +29,57 @@ const ViewCardSelected = () => {
 
   const selectMusic = (music: Music) => {
     updateMusicSelected(music.id);
-    console.log('musicSelected: ', musicSelected[0])
     dispatch(updateCurrentMusic(music));
   };
 
   useEffect(() => {
-    const getAlbums = async () => {
-      setLoading(true)
-      try {
-        const response = await api.get<AlbumsResponse>('/albums.json');
-        const extractedAlbum = response.data.albums.find(a => {
-          return a.id === Number(id)
-        });
-        if (extractedAlbum) {
-          setAlbum(extractedAlbum);
-          setMusics(extractedAlbum?.musics);
-          setLoading(false)
-        }
-      } catch (err) {
-        console.error('erro ao carregar álbuns:', err);
-      }
-    };
+    const index = id?.substring(1);
 
-    getAlbums();
+    switch (index) {
+      case '1': {
+        const getAlbums = async () => {
+          setLoading(true)
+          try {
+            const response = await api.get<AlbumsResponse>(`/albums.json`);
+            const extractedAlbum = response.data.albums.find(a => {
+              return a.id === Number(id)
+            });
+            if (extractedAlbum) {
+              setAlbum(extractedAlbum);
+              setMusics(extractedAlbum?.musics);
+              setLoading(false)
+            }
+          } catch (err) {
+            console.error('erro ao carregar álbuns:', err);
+          }
+        };
+
+        getAlbums();
+        return
+      }
+
+      case '2': {
+        const getAlbums = async () => {
+          setLoading(true)
+          try {
+            const response = await api.get<AlbumsResponse>(`/ar.json`);
+            const extractedAlbum = response.data.albums.find(a => {
+              return a.id === Number(id)
+            });
+            if (extractedAlbum) {
+              setAlbum(extractedAlbum);
+              setMusics(extractedAlbum?.musics);
+              setLoading(false)
+            }
+          } catch (err) {
+            console.error('erro ao carregar álbuns:', err);
+          }
+        };
+
+        getAlbums();
+        return
+      }
+    }
   }, [id]);
 
   useEffect(() => {
