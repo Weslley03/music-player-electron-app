@@ -1,1 +1,1 @@
-export type CardType = 'artist' | 'album' | 'playlist';
+export type CardType = 'artist' | 'album' | 'playlist' | 'music';

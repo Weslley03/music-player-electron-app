@@ -25,6 +25,7 @@ const CardOptionMyLibrary: React.FC<Props> = ({
     artist: 'Artista',
     album: 'Álbum',
     playlist: 'Playlist',
+    music: '',
   };
 
   const [isHovered, setIsHovered] = useState(false);
@@ -56,7 +57,7 @@ const CardOptionMyLibrary: React.FC<Props> = ({
             <p> {title} </p>
           </div>
           <div className={styles.description}>
-            <p> {type === 'artist' ? 'Artista' : `${cardTypeMap[type]} - ${description}`} </p>
+            <p> {type === 'artist' ? 'Artista' : type === 'music' ? description : `${cardTypeMap[type]} - ${description}`} </p>
           </div>
         </div>
       )}

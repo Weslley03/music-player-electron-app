@@ -50,6 +50,47 @@ const MediaPlayer = () => {
     }
   };
 
+  const togglePlay = () => {
+    const audio = audioRef.current;
+
+    if (!audio || currentMusic.isValid === false) return;
+
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleSeek = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newTime = Number(event.target.value);
+    setCurrentTime(newTime);
+
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+    }
+
+    const percent = (newTime / duration) * 100;
+    event.target.style.setProperty('--progress', `${percent}%`);
+  };
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60)
+      .toString()
+      .padStart(2, '0');
+    const seconds = Math.floor(time % 60)
+      .toString()
+      .padStart(2, '0');
+    return `${minutes}:${seconds}`;
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || currentMusic.isValid === false) return;
+    audio.play();
+  }, [currentMusic]);
+
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -86,41 +127,6 @@ const MediaPlayer = () => {
     };
   }, []);
 
-  const togglePlay = () => {
-    const audio = audioRef.current;
-
-    if (!audio || currentMusic.isValid === false) return;
-
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  const handleSeek = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newTime = Number(event.target.value);
-    setCurrentTime(newTime);
-
-    if (audioRef.current) {
-      audioRef.current.currentTime = newTime;
-    }
-
-    const percent = (newTime / duration) * 100;
-    event.target.style.setProperty('--progress', `${percent}%`);
-  };
-
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60)
-      .toString()
-      .padStart(2, '0');
-    const seconds = Math.floor(time % 60)
-      .toString()
-      .padStart(2, '0');
-    return `${minutes}:${seconds}`;
-  };
-
   return (
     <div className={styles.mediaContainer}>
       <div className={styles.content}>
@@ -150,7 +156,7 @@ const MediaPlayer = () => {
             </RoundBottom>
 
             <RoundBottom onClick={togglePlay}>
-              {isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
+              {audioRef.current && !audioRef.current.paused ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
             </RoundBottom>
 
             <RoundBottom>

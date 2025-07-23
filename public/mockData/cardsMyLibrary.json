@@ -1,32 +1,32 @@
 {
   "albums": [
     {
-      "id": 1,
-      "img": "./assets/mockImage.jpeg",
-      "title": "Olho de tigre",
-      "description": "Weslley",
+      "id": 11,
+      "img": "/assets/734-mc-kako.png",
+      "title": "734",
+      "description": "MC Kako",
       "createdAt": "2025-07-12T10:23:00Z",
       "type": "album"
     },
     {
-      "id": 2,
-      "img": "./assets/mockImage.jpeg",
+      "id": 12,
+      "img": "/assets/mockImage.jpeg",
       "title": "Casa blanca",
       "description": "Djonga",
       "createdAt": "2025-07-13T16:55:00Z",
       "type": "album"
     },
     {
-      "id": 3,
-      "img": "./assets/mockImage.jpeg",
+      "id": 13,
+      "img": "/assets/mockImage.jpeg",
       "title": "Luz da meia-noite",
       "description": "Criolo",
       "createdAt": "2025-07-15T09:00:00Z",
       "type": "album"
     },
     {
-      "id": 4,
-      "img": "./assets/mockImage.jpeg",
+      "id": 14,
+      "img": "/assets/mockImage.jpeg",
       "title": "Tempestade urbana",
       "description": "MC Marechal",
       "createdAt": "2025-07-10T20:41:00Z",
@@ -35,23 +35,23 @@
   ],
   "artists": [
     {
-      "id": 1,
-      "img": "./assets/mockImage.jpeg",
+      "id": 21,
+      "img": "/assets/mockImage.jpeg",
       "title": "Weslley",
       "createdAt": "2025-07-14T11:10:00Z",
       "type": "artist"
     },
     {
-      "id": 2,
-      "img": "./assets/mockImage.jpeg",
+      "id": 22,
+      "img": "/assets/mockImage.jpeg",
       "title": "Drik Barbosa",
       "createdAt": "2025-07-11T08:00:00Z",
       "type": "artist"
       
     },
     {
-      "id": 3,
-      "img": "./assets/mockImage.jpeg",
+      "id": 23,
+      "img": "/assets/mockImage.jpeg",
       "title": "Rincon Sapiência",
       "createdAt": "2025-07-13T22:30:00Z",
       "type": "artist"
@@ -59,24 +59,24 @@
   ],
   "playlist": [
     {
-      "id": 1,
-      "img": "./assets/mockImage.jpeg",
+      "id": 31,
+      "img": "/assets/mockImage.jpeg",
       "title": "Favela vive",
       "description": "Poetas no topo",
       "createdAt": "2025-07-15T13:22:00Z",
       "type": "playlist"
     },
     {
-      "id": 2,
-      "img": "./assets/mockImage.jpeg",
+      "id": 32,
+      "img": "/assets/mockImage.jpeg",
       "title": "Rolê de domingo",
       "description": "Relax vibes",
       "createdAt": "2025-07-12T07:45:00Z",
       "type": "playlist"
     },
     {
-      "id": 3,
-      "img": "./assets/mockImage.jpeg",
+      "id": 33,
+      "img": "/assets/mockImage.jpeg",
       "title": "Chuva de ideias",
       "description": "Lo-fi beat tape",
       "createdAt": "2025-07-10T18:10:00Z",

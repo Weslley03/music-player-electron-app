@@ -1,0 +1,78 @@
+{
+  "albums": [
+    {
+      "id": 11,
+      "img": "/assets/734-mc-kako.png",
+      "title": "734",
+      "description": "MC Kako",
+      "createdAt": "2025-07-17T14:45:00Z",
+      "type": "album",
+      "musics": [
+        {
+          "id": 111,
+          "img": "./assets/mockImage.jpeg",
+          "title": "Dois dias",
+          "description": "MC Kako",
+          "createdAt": "2025-07-13T08:30:00Z",
+          "src": "/mockData/musics/dois-dias-mc-kako-12345678.mp3",
+          "type": "music"
+        },
+        {
+          "id": 112,
+          "img": "./assets/mockImage.jpeg",
+          "title": "Tempo",
+          "description": "MC Kako",
+          "createdAt": "2025-07-19T12:00:00Z",
+          "src": "/mockData/musics/tempo-mc-kako-12345678.mp3",
+          "type": "music"
+        },
+        {
+          "id": 113,
+          "img": "./assets/mockImage.jpeg",
+          "title": "Ísis",
+          "description": "MC Kako",
+          "createdAt": "2025-07-24T16:15:00Z",
+          "src": "/mockData/musics/isis-mc-kako-12345678.mp3",
+          "type": "music"
+        },
+        {
+          "id": 114,
+          "img": "./assets/mockImage.jpeg",
+          "title": "Etiqueta",
+          "description": "MC Kako",
+          "createdAt": "2025-07-20T10:00:00Z",
+          "src": "/mockData/musics/etiqueta-mc-kako-12345678.mp3",
+          "type": "music"
+        },
+        {
+          "id": 115,
+          "img": "./assets/mockImage.jpeg",
+          "title": "Sem coração",
+          "description": "MC Kako",
+          "createdAt": "2025-07-20T10:00:00Z",
+          "src": "/mockData/musics/sem-coracao-mc-kako-12345678.mp3",
+          "type": "music"
+        },
+        {
+          "id": 116,
+          "img": "./assets/mockImage.jpeg",
+          "title": "Maciçado",
+          "description": "MC Kako",
+          "createdAt": "2025-07-20T10:00:00Z",
+          "src": "/mockData/musics/macicado-mc-kako-12345678.mp3",
+          "type": "music"
+        },
+        {
+
+          "id": 117,
+          "img": "./assets/mockImage.jpeg",
+          "title": "Malandragem",
+          "description": "MC Kako",
+          "createdAt": "2025-07-20T10:00:00Z",
+          "src": "/mockData/musics/malandragem-mc-kako-12345678.mp3",
+          "type": "music"
+        }
+      ]
+    }
+  ]
+}
