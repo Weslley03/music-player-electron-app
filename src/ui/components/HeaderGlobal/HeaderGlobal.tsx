@@ -6,10 +6,16 @@ import styles from './HeaderGlobal.module.scss';
 import RoundBottom from '../RoundBottom/RoundBottom';
 import type { User, UsersResponse } from '../../types/user';
 import api from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderGlobal = () => {
   const [search, setSearch] = useState('');
   const [user, setUser] = useState<User>();
+  const navigate = useNavigate();
+
+  const redirectToHome = () => {
+    navigate('/');
+  };
 
   //onMounted
   useEffect(() => {
@@ -29,7 +35,7 @@ const HeaderGlobal = () => {
   return (
     <>
       <div className={styles.container}>
-        <RoundBottom>
+        <RoundBottom onClick={() => redirectToHome()}>
           <HomeIcon />
         </RoundBottom>
         <div className={styles.searchInput}>

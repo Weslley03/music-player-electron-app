@@ -1,0 +1,23 @@
+{
+  "artists": [
+    {
+      "id": 22,
+      "img": "/assets/artist-pumapjl.png",
+      "title": "MC Kako",
+      "description": "",
+      "createdAt": "2025-07-17T14:45:00Z",
+      "type": "artist",
+      "musics": [
+        {
+          "id": 211,
+          "img": "./assets/mockImage.jpeg",
+          "title": "Cartier Santos Dumont",
+          "description": "Pumapjl",
+          "createdAt": "2025-07-13T08:30:00Z",
+          "src": "/mockData/musics/cartier-santos-dumont-pumapjl-12345678.mp3",
+          "type": "music"
+        }
+      ]
+    }
+  ]
+}

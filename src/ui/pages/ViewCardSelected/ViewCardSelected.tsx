@@ -8,11 +8,12 @@ import styles from './ViewCardSelected.module.scss';
 import colors, { getDominantColorFromImage } from '../../utils/colors';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { updateCurrentMusic } from '../../reducers/currentMusicReducer';
+import type { Artist, ArtistsResponse } from '../../types/MyLibrary/artist';
 
 const ViewCardSelected = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
-  const [album, setAlbum] = useState<Album | null>(null);
+  const [optionSelected, setOptionSelected] = useState<Album | Artist | null>(null);
   const [musics, setMusics] = useState<Music[]>([]);
   const [loading, setLoading] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -34,18 +35,19 @@ const ViewCardSelected = () => {
 
   useEffect(() => {
     const index = id?.substring(1);
+    const indexMapping = { 1: 'album', 2: 'artist' };
 
     switch (index) {
       case '1': {
         const getAlbums = async () => {
           setLoading(true)
           try {
-            const response = await api.get<AlbumsResponse>(`/albums.json`);
+            const response = await api.get<AlbumsResponse>(`/${indexMapping[index]}s.json`);
             const extractedAlbum = response.data.albums.find(a => {
               return a.id === Number(id)
             });
             if (extractedAlbum) {
-              setAlbum(extractedAlbum);
+              setOptionSelected(extractedAlbum);
               setMusics(extractedAlbum?.musics);
               setLoading(false)
             }
@@ -59,31 +61,31 @@ const ViewCardSelected = () => {
       }
 
       case '2': {
-        const getAlbums = async () => {
+        const getArtists = async () => {
           setLoading(true)
           try {
-            const response = await api.get<AlbumsResponse>(`/ar.json`);
-            const extractedAlbum = response.data.albums.find(a => {
+            const response = await api.get<ArtistsResponse>(`/${indexMapping[index]}s.json`);
+            const extractedArtist = response.data.artists.find(a => {
               return a.id === Number(id)
             });
-            if (extractedAlbum) {
-              setAlbum(extractedAlbum);
-              setMusics(extractedAlbum?.musics);
+            if (extractedArtist) {
+              setOptionSelected(extractedArtist);
+              setMusics(extractedArtist?.musics);
               setLoading(false)
             }
           } catch (err) {
-            console.error('erro ao carregar álbuns:', err);
+            console.error('erro ao carregar artistas:', err);
           }
         };
 
-        getAlbums();
+        getArtists();
         return
       }
     }
   }, [id]);
 
   useEffect(() => {
-    if (album) {
+    if (optionSelected) {
       const imgEl = imgRef.current;
       if (imgEl && imgEl.complete) {
         setBgColor(getDominantColorFromImage(imgEl));
@@ -94,22 +96,22 @@ const ViewCardSelected = () => {
       }
     }
 
-  }, [album]);
+  }, [optionSelected]);
 
-  const albumSection = (album: Album) => {
+  const optionSection = (albuma: Album | Artist) => {
     return (
       <div>
         <div className={styles.albumInfo} style={{ backgroundColor: bgColor }}>
           <div className={styles.headerContent}>
             <img
               ref={imgRef}
-              src={album.img}
+              src={albuma.img}
               className={styles.albumCapa}
               crossOrigin="anonymous"
             />
             <div className={styles.text}>
-              <h2>{album.title}</h2>
-              <p>{album.description}</p>
+              <h2>{albuma.title}</h2>
+              <p>{albuma.description}</p>
             </div>
           </div>
         </div>
@@ -141,8 +143,8 @@ const ViewCardSelected = () => {
       <div className={styles.mainContainer}>
         {loading ? (
           <p className="loading"> buscando... </p>
-        ) : album ? (
-          albumSection(album)
+        ) : optionSelected ? (
+          optionSection(optionSelected)
         ) : (
           <p className="not-found"> Álbum não encontrado. </p>
         )}
