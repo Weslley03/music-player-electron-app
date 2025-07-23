@@ -12,8 +12,11 @@ import type { CardOption, CardsResponse } from '../../types/MyLibrary/Cards';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
 import MinimizeIcon from '../../icons/MinimizeIcon';
 import ExtendIcon from '../../icons/ExtendIcon';
+import { useNavigate } from 'react-router-dom';
 
 const MyLibrary = () => {
+  const navigate = useNavigate();
+
   const [cards, setCards] = useState<CardOption[] | null>(null);
   const [filteredCards, setFilteredCards] = useState<CardOption[] | null>(null);
 
@@ -99,6 +102,10 @@ const MyLibrary = () => {
         />
       </div>
     );
+  };
+
+  const directToSelected = (id: number) => {
+    navigate(`/view-card-selected/${id}`);
   };
 
   useEffect(() => {
@@ -233,7 +240,7 @@ const MyLibrary = () => {
               className={styles.cardOptions}
             >
               {(filteredCards ? filteredCards : cards)?.map(card => (
-                <div className={styles.cardOption} key={`${card.id}-${card.title.trim()}`}>
+                <div className={styles.cardOption} key={`${card.id}-${card.title.trim()}`} onClick={() => directToSelected(card.id)}>
                   <CardOptionMyLibrary
                     key={`${card.id}-${card.title.trim()}`}
                     imgSrc={card.img}

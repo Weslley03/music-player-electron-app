@@ -4,7 +4,7 @@
       "id": 1,
       "name": "weslley",
       "email": "weslley@example.com",
-      "imglogo": "./assets/mockImage.jpeg"
+      "imglogo": "/assets/mockImage.jpeg"
     }
   ]
 }

@@ -1,0 +1,77 @@
+.albumInfo {
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  gap: 16px;
+  height: 200px;
+  background: linear-gradient(to top, var(--dark-500) 3%, transparent 97%);
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 16px;
+  height: 100%;
+}
+
+.albumCapa {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.availableMusics {
+  height: 348px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: var(--dark-200);
+    border-radius: 10px;
+    margin-block: 22px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: var(--dark-300);
+    border-radius: 10px;
+    
+    &:hover {
+      background: var(--dark-400);
+    }
+  }
+}
+
+.musicInline {
+  display: flex;
+  flex-direction: row;
+  margin-top: 16px;
+  padding: 12px;
+  align-items: center;
+  border-radius: 12px;
+  gap: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--dark-500);
+    transition: background 0.2s;
+  }
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.author .description {
+  font-size: 12px;
+}
