@@ -3,12 +3,9 @@ import HeaderGlobal from '../components/HeaderGlobal/HeaderGlobal';
 import MyLibrary from '../components/MyLibrary/MyLibrary';
 import MediaPlayer from '../components/MediaPlayer/MediaPlayer';
 import styles from './GenericLayout.module.scss';
+import { Outlet } from 'react-router-dom';
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const GenericLayout: React.FC<Props> = ({ children }) => {
+const GenericLayout: React.FC = () => {
   return (
     <div>
       <header className={styles.header}>
@@ -21,7 +18,7 @@ const GenericLayout: React.FC<Props> = ({ children }) => {
         </aside>
 
         <main className={styles.routesArea}>
-          {children}
+          <Outlet />
         </main>
       </div>
 

@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import GenericLayout from '../../layouts/GenericLayout';
 import { useEffect, useRef, useState } from 'react';
 import type { Album, AlbumsResponse } from '../../types/MyLibrary/album';
 import api from '../../services/api';
@@ -139,17 +138,15 @@ const ViewCardSelected = () => {
   };
 
   return (
-    <GenericLayout>
-      <div className={styles.mainContainer}>
-        {loading ? (
-          <p className="loading"> buscando... </p>
-        ) : optionSelected ? (
-          optionSection(optionSelected)
-        ) : (
-          <p className="not-found"> Álbum não encontrado. </p>
-        )}
-      </div>
-    </GenericLayout>
+    <div className={styles.mainContainer}>
+      {loading ? (
+        <p className="loading"> buscando... </p>
+      ) : optionSelected ? (
+        optionSection(optionSelected)
+      ) : (
+        <p className="not-found"> Álbum não encontrado. </p>
+      )}
+    </div>
   );
 };
 

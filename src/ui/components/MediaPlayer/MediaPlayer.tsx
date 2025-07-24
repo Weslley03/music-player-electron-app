@@ -137,15 +137,16 @@ const MediaPlayer = () => {
         />
 
         <div className={styles.currentMusic}>
-          {currentMusic.isValid !== false && (<CardOptionMyLibrary
-            key={`${currentMusic.id}-${currentMusic.title.trim()}`}
-            imgSrc={cardImageMock}
-            title={currentMusic.title}
-            description={currentMusic.description}
-            type={currentMusic.type as CardType}
-            hoverColor=''
-            reducedUI={false}
-          />
+          {currentMusic.isValid !== false && (
+            <CardOptionMyLibrary
+              key={`${currentMusic.id}-${currentMusic.title.trim()}`}
+              imgSrc={cardImageMock}
+              title={currentMusic.title}
+              description={currentMusic.description}
+              type={currentMusic.type as CardType}
+              hoverColor=''
+              reducedUI={false}
+            />
           )}
         </div>
 

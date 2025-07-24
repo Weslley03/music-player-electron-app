@@ -1,4 +1,3 @@
-import GenericLayout from "../../layouts/GenericLayout";
 import styles from './HomePage.module.scss';
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { updateCurrentMusic, type currentMusicState } from "../../reducers/currentMusicReducer";
@@ -24,16 +23,14 @@ const HomePage = () => {
   };
 
   return (
-    <GenericLayout>
-      <div className={styles.mainContainer}>
-        <p> HomePage! </p>
-        <div>
-          <div style={{ display: 'flex', gap: '12px' }}>
-            <button onClick={updateMusic}> update current music </button>
-          </div>
+    <div className={styles.mainContainer}>
+      <p> HomePage! </p>
+      <div>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button onClick={updateMusic}> update current music </button>
         </div>
       </div>
-    </GenericLayout>
+    </div>
   )
 };
 

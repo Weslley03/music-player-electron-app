@@ -11,13 +11,6 @@
   ],
   "artists": [
     {
-      "id": 21,
-      "img": "/assets/mockImage.jpeg",
-      "title": "Weslley",
-      "createdAt": "2025-07-14T11:10:00Z",
-      "type": "artist"
-    },
-    {
       "id": 22,
       "img": "/assets/artist-pumapjl.png",
       "title": "Pumapjl",
@@ -26,14 +19,5 @@
       
     }
   ],
-  "playlist": [
-    {
-      "id": 31,
-      "img": "/assets/mockImage.jpeg",
-      "title": "Favela vive",
-      "description": "Poetas no topo",
-      "createdAt": "2025-07-15T13:22:00Z",
-      "type": "playlist"
-    }
-  ]
+  "playlist": []
 }
