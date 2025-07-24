@@ -5,30 +5,23 @@ import api from '../../services/api';
 import type { Music } from '../../types/music';
 import styles from './ViewCardSelected.module.scss';
 import colors, { getDominantColorFromImage } from '../../utils/colors';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { updateCurrentMusic } from '../../reducers/currentMusicReducer';
 import type { Artist, ArtistsResponse } from '../../types/MyLibrary/artist';
 
 const ViewCardSelected = () => {
   const dispatch = useAppDispatch();
+  const currentMusic = useAppSelector((state) => state.currentMusic);
+
   const { id } = useParams<{ id: string }>();
   const [optionSelected, setOptionSelected] = useState<Album | Artist | null>(null);
   const [musics, setMusics] = useState<Music[]>([]);
   const [loading, setLoading] = useState(false);
+
   const imgRef = useRef<HTMLImageElement>(null);
   const [bgColor, setBgColor] = useState<string>('#000');
 
-  const [musicSelected, setMusicSelected] = useState<number[]>([]);
-
-  const updateMusicSelected = (newValue: number) => {
-    if (musicSelected.length >= 1) {
-      setMusicSelected([]);
-    }
-    setMusicSelected([newValue]);
-  }
-
   const selectMusic = (music: Music) => {
-    updateMusicSelected(music.id);
     dispatch(updateCurrentMusic(music));
   };
 
@@ -94,7 +87,6 @@ const ViewCardSelected = () => {
         };
       }
     }
-
   }, [optionSelected]);
 
   const optionSection = (albuma: Album | Artist) => {
@@ -122,7 +114,7 @@ const ViewCardSelected = () => {
                 key={music.id}
                 className={styles.musicInline}
                 onClick={() => selectMusic(music)}
-                style={{ backgroundColor: musicSelected[0] === music.id ? colors.dark500 : '' }}
+                style={{ backgroundColor: currentMusic.id === music.id ? colors.dark500 : '' }}
               >
                 <span> {index + 1} </span>
                 <div className={styles.author}>
