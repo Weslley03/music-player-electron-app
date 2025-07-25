@@ -12,9 +12,13 @@ import VolumeOffIcon from '../../icons/VolumeOffIcon';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
 import cardImageMock from '../../assets/userImage.jpeg'
 import type { CardType } from '../../types/MyLibrary/CardType';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { playNextMusic } from '../../reducers/currentMusicReducer';
 
 const MediaPlayer = () => {
+  const dispatch = useAppDispatch();
+  const { currentMusic, playlist } = useAppSelector((state) => state.music);
+
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -22,7 +26,6 @@ const MediaPlayer = () => {
   const [isRepeating, setIsRepeating] = useState(false);
   const [volume, setVolume] = useState(1);
   const volumeSliderRef = useRef<HTMLInputElement>(null);
-  const currentMusic = useAppSelector((state) => state.currentMusic);
 
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(event.target.value);
@@ -53,7 +56,7 @@ const MediaPlayer = () => {
   const togglePlay = () => {
     const audio = audioRef.current;
 
-    if (!audio || currentMusic.isValid === false) return;
+    if (!audio || !currentMusic) return;
 
     if (isPlaying) {
       audio.pause();
@@ -86,9 +89,32 @@ const MediaPlayer = () => {
   };
 
   useEffect(() => {
+  }, [currentMusic])
+
+  useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || currentMusic.isValid === false) return;
-    audio.play();
+    if (!audio) return;
+
+    const handleEnded = () => {
+      if (playlist.length > 0) {
+        dispatch(playNextMusic());
+      }
+    };
+
+    audio.addEventListener('ended', handleEnded);
+    return () => {
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, [dispatch, playlist]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (!audio || !currentMusic) return;
+
+    audio.load();
+    audio.play()
+    setIsPlaying(true)
   }, [currentMusic]);
 
   useEffect(() => {
@@ -132,12 +158,12 @@ const MediaPlayer = () => {
       <div className={styles.content}>
         <audio
           ref={audioRef}
-          src={currentMusic.src}
+          src={currentMusic?.src}
           preload="metadata"
         />
 
         <div className={styles.currentMusic}>
-          {currentMusic.isValid !== false && (
+          {currentMusic && (
             <CardOptionMyLibrary
               key={`${currentMusic.id}-${currentMusic.title.trim()}`}
               imgSrc={cardImageMock}
