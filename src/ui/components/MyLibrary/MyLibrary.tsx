@@ -4,21 +4,21 @@ import colors from '../../utils/colors';
 import RoundBottom from '../RoundBottom/RoundBottom';
 import RoundedBottom from '../RoundedBottom/RoundedBottom';
 import styles from './MyLibrary.module.scss';
-import type { FilterOption } from '../../types/MyLibrary/filterOptionsType';
+import type { FilterOption } from '../../types/MyLibrary/filter-options-type';
 import CloseIcon from '../../icons/CloseIcon';
 import SearchIcon from '../../icons/SearchIcon';
-import api from '../../services/api';
-import type { CardOption, CardsResponse } from '../../types/MyLibrary/Cards';
+import type { LibraryOption } from '../../types/MyLibrary/library-type';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
 import MinimizeIcon from '../../icons/MinimizeIcon';
 import ExtendIcon from '../../icons/ExtendIcon';
 import { useNavigate } from 'react-router-dom';
+import { getUserLibrary } from '../../services/user/user-service';
 
 const MyLibrary = () => {
   const navigate = useNavigate();
 
-  const [cards, setCards] = useState<CardOption[] | null>(null);
-  const [filteredCards, setFilteredCards] = useState<CardOption[] | null>(null);
+  const [cards, setCards] = useState<LibraryOption[] | null>(null);
+  const [filteredCards, setFilteredCards] = useState<LibraryOption[] | null>(null);
 
   const [reducedUI, setReducedUI] = useState(false);
 
@@ -104,8 +104,8 @@ const MyLibrary = () => {
     );
   };
 
-  const directToSelected = (id: number) => {
-    navigate(`/view-card-selected/${id}`);
+  const directToSelected = (type: string, id: string) => {
+    navigate(`/view-card-selected/${type}/${id}`);
   };
 
   useEffect(() => {
@@ -159,19 +159,8 @@ const MyLibrary = () => {
   //onMounted
   useEffect(() => {
     const getCardsOption = async () => {
-      try {
-        const response = await api.get<CardsResponse>('/cardsMyLibrary.json');
-
-        const cardsData = [
-          ...response.data.albums,
-          ...response.data.artists,
-          ...response.data.playlist
-        ].sort((a: CardOption, b: CardOption) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-        setCards(cardsData);
-      } catch (err) {
-        console.error(err)
-      };
+      const cards = await getUserLibrary();
+      setCards(cards);
     };
 
     getCardsOption();
@@ -240,7 +229,7 @@ const MyLibrary = () => {
               className={styles.cardOptions}
             >
               {(filteredCards ? filteredCards : cards)?.map(card => (
-                <div className={styles.cardOption} key={`${card.id}-${card.title.trim()}`} onClick={() => directToSelected(card.id)}>
+                <div className={styles.cardOption} key={`${card.id}-${card.title.trim()}`} onClick={() => directToSelected(card.type, card.id)}>
                   <CardOptionMyLibrary
                     key={`${card.id}-${card.title.trim()}`}
                     imgSrc={card.img}

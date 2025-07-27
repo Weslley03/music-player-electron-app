@@ -1,8 +1,8 @@
 export type User = {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  imglogo: string;
+  avatar: string;
 };
 
 export type UsersResponse = {

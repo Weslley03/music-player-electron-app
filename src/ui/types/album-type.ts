@@ -1,7 +1,7 @@
-import type { Music } from "../music";
+import type { Music } from "./music-type";
 
 export type Album = {
-  id: number;
+  id: string;
   img: string;
   title: string;
   description: string;

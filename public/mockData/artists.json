@@ -1,7 +1,7 @@
 {
   "artists": [
     {
-      "id": 22,
+      "id": "22",
       "img": "/assets/artist-pumapjl.png",
       "title": "Pumapjl",
       "description": "",
@@ -9,8 +9,8 @@
       "type": "artist",
       "musics": [
         {
-          "id": 211,
-          "img": "./assets/mockImage.jpeg",
+          "id": "211",
+          "img": "/assets/mockImage.jpeg",
           "title": "Cartier Santos Dumont",
           "description": "Pumapjl",
           "createdAt": "2025-07-13T08:30:00Z",

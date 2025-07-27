@@ -1,4 +1,4 @@
-import type { Music } from '../types/music';
+import type { Music } from '../types/music-type';
 
 export type CurrentMusicState = {
   currentMusic: Music | null;
