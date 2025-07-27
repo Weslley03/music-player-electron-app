@@ -10,7 +10,7 @@
       "musics": [
         {
           "id": 111,
-          "img": "./assets/mockImage.jpeg",
+          "img": "/assets/mockImage.jpeg",
           "title": "Dois dias",
           "description": "MC Kako",
           "createdAt": "2025-07-13T08:30:00Z",
@@ -19,7 +19,7 @@
         },
         {
           "id": 112,
-          "img": "./assets/mockImage.jpeg",
+          "img": "/assets/mockImage.jpeg",
           "title": "Tempo",
           "description": "MC Kako",
           "createdAt": "2025-07-19T12:00:00Z",
@@ -28,7 +28,7 @@
         },
         {
           "id": 113,
-          "img": "./assets/mockImage.jpeg",
+          "img": "/assets/mockImage.jpeg",
           "title": "Ísis",
           "description": "MC Kako",
           "createdAt": "2025-07-24T16:15:00Z",
@@ -37,7 +37,7 @@
         },
         {
           "id": 114,
-          "img": "./assets/mockImage.jpeg",
+          "img": "/assets/mockImage.jpeg",
           "title": "Etiqueta",
           "description": "MC Kako",
           "createdAt": "2025-07-20T10:00:00Z",
@@ -46,7 +46,7 @@
         },
         {
           "id": 115,
-          "img": "./assets/mockImage.jpeg",
+          "img": "/assets/mockImage.jpeg",
           "title": "Sem coração",
           "description": "MC Kako",
           "createdAt": "2025-07-20T10:00:00Z",
@@ -55,7 +55,7 @@
         },
         {
           "id": 116,
-          "img": "./assets/mockImage.jpeg",
+          "img": "/assets/mockImage.jpeg",
           "title": "Maciçado",
           "description": "MC Kako",
           "createdAt": "2025-07-20T10:00:00Z",
@@ -65,7 +65,7 @@
         {
 
           "id": 117,
-          "img": "./assets/mockImage.jpeg",
+          "img": "/assets/mockImage.jpeg",
           "title": "Malandragem",
           "description": "MC Kako",
           "createdAt": "2025-07-20T10:00:00Z",

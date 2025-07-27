@@ -4,9 +4,9 @@ import SearchIcon from '../../icons/SearchIcon';
 import RoundInput from '../RoundInput/RoundInput';
 import styles from './HeaderGlobal.module.scss';
 import RoundBottom from '../RoundBottom/RoundBottom';
-import type { User, UsersResponse } from '../../types/user';
-import api from '../../services/api';
+import type { User } from '../../types/user-type';
 import { useNavigate } from 'react-router-dom';
+import { getUserInformations } from '../../services/user/user-service';
 
 const HeaderGlobal = () => {
   const [search, setSearch] = useState('');
@@ -20,13 +20,8 @@ const HeaderGlobal = () => {
   //onMounted
   useEffect(() => {
     const getUser = async () => {
-      try {
-        const response = await api.get<UsersResponse>('/user.json');
-        const userData = [...response.data.users];
-        setUser(userData.find(user => user.id === 1)); //mocking selection of a single user
-      } catch (err) {
-        console.error(err)
-      };
+      const user = await getUserInformations('12345678');
+      setUser(user);
     };
 
     getUser();

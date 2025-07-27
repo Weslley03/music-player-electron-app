@@ -7,12 +7,12 @@ import styles from './MyLibrary.module.scss';
 import type { FilterOption } from '../../types/MyLibrary/filterOptionsType';
 import CloseIcon from '../../icons/CloseIcon';
 import SearchIcon from '../../icons/SearchIcon';
-import api from '../../services/api';
-import type { CardOption, CardsResponse } from '../../types/MyLibrary/Cards';
+import type { CardOption } from '../../types/MyLibrary/Cards';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
 import MinimizeIcon from '../../icons/MinimizeIcon';
 import ExtendIcon from '../../icons/ExtendIcon';
 import { useNavigate } from 'react-router-dom';
+import { getUserLibrary } from '../../services/user/user-service';
 
 const MyLibrary = () => {
   const navigate = useNavigate();
@@ -159,19 +159,8 @@ const MyLibrary = () => {
   //onMounted
   useEffect(() => {
     const getCardsOption = async () => {
-      try {
-        const response = await api.get<CardsResponse>('/cardsMyLibrary.json');
-
-        const cardsData = [
-          ...response.data.albums,
-          ...response.data.artists,
-          ...response.data.playlist
-        ].sort((a: CardOption, b: CardOption) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-        setCards(cardsData);
-      } catch (err) {
-        console.error(err)
-      };
+      const cards = await getUserLibrary();
+      setCards(cards);
     };
 
     getCardsOption();

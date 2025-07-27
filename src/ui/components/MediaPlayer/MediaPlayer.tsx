@@ -10,7 +10,6 @@ import colors from '../../utils/colors';
 import VolumeIcon from '../../icons/VolumeIcon';
 import VolumeOffIcon from '../../icons/VolumeOffIcon';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
-import cardImageMock from '../../assets/userImage.jpeg'
 import type { CardType } from '../../types/MyLibrary/CardType';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { playNextMusic } from '../../reducers/currentMusicReducer';
@@ -166,7 +165,7 @@ const MediaPlayer = () => {
           {currentMusic && (
             <CardOptionMyLibrary
               key={`${currentMusic.id}-${currentMusic.title.trim()}`}
-              imgSrc={cardImageMock}
+              imgSrc={currentMusic.img}
               title={currentMusic.title}
               description={currentMusic.description}
               type={currentMusic.type as CardType}
