@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     element: <GenericLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: '/view-card-selected/:id', element: <ViewCardSelected /> },
+      { path: '/view-card-selected/:type/:id', element: <ViewCardSelected /> },
     ],
   },
 ]);

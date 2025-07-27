@@ -1,7 +1,7 @@
 import type { CardType } from "./CardType";
 
 export interface CardOption {
-  id: number;
+  id: string;
   img: string;
   title: string;
   description?: string;

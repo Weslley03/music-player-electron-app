@@ -1,19 +1,20 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import type { Album, AlbumsResponse } from '../../types/MyLibrary/album';
-import api from '../../services/api';
+import type { Album } from '../../types/MyLibrary/album';
 import type { Music } from '../../types/music';
 import styles from './ViewCardSelected.module.scss';
 import colors, { getDominantColorFromImage } from '../../utils/colors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { setPlayList, updateCurrentMusic } from '../../reducers/currentMusicReducer';
-import type { Artist, ArtistsResponse } from '../../types/MyLibrary/artist';
+import type { Artist } from '../../types/MyLibrary/artist';
+import { getAlbumById } from '../../services/album/album-service';
+import { getArtistById } from '../../services/artist/artist-service';
 
 const ViewCardSelected = () => {
   const dispatch = useAppDispatch();
   const { currentMusic } = useAppSelector((state) => state.music);
 
-  const { id } = useParams<{ id: string }>();
+  const { type, id } = useParams<{ type: string, id: string }>();
   const [optionSelected, setOptionSelected] = useState<Album | Artist | null>(null);
   const [musics, setMusics] = useState<Music[]>([]);
   const [loading, setLoading] = useState(false);
@@ -26,50 +27,35 @@ const ViewCardSelected = () => {
   };
 
   useEffect(() => {
-    const index = id?.substring(1);
-    const indexMapping = { 1: 'album', 2: 'artist' };
-
-    switch (index) {
-      case '1': {
+    switch (type) {
+      case 'album': {
         const getAlbums = async () => {
           setLoading(true)
-          try {
-            const response = await api.get<AlbumsResponse>(`/${indexMapping[index]}s.json`);
-            const extractedAlbum = response.data.albums.find(a => {
-              return a.id === Number(id)
-            });
-            if (extractedAlbum) {
-              setOptionSelected(extractedAlbum);
-              setMusics(extractedAlbum?.musics);
-              dispatch(setPlayList(extractedAlbum?.musics));
-              setLoading(false)
-            }
-          } catch (err) {
-            console.error('erro ao carregar álbuns:', err);
-          }
+          const response = await getAlbumById(id!);
+
+          if (response.id) {
+            setOptionSelected(response);
+            setMusics(response.musics);
+            dispatch(setPlayList(response.musics));
+            setLoading(false)
+          };
         };
 
         getAlbums();
         return
       };
 
-      case '2': {
+      case 'artist': {
         const getArtists = async () => {
           setLoading(true)
-          try {
-            const response = await api.get<ArtistsResponse>(`/${indexMapping[index]}s.json`);
-            const extractedArtist = response.data.artists.find(a => {
-              return a.id === Number(id)
-            });
-            if (extractedArtist) {
-              setOptionSelected(extractedArtist);
-              setMusics(extractedArtist?.musics);
-              dispatch(setPlayList(extractedArtist?.musics));
-              setLoading(false)
-            }
-          } catch (err) {
-            console.error('erro ao carregar artistas:', err);
-          }
+          const response = await getArtistById(id!);
+
+          if (response.id) {
+            setOptionSelected(response);
+            setMusics(response.musics);
+            dispatch(setPlayList(response.musics));
+            setLoading(false)
+          };
         };
 
         getArtists();
@@ -77,7 +63,7 @@ const ViewCardSelected = () => {
       };
 
     }
-  }, [dispatch, id]);
+  }, [dispatch, type, id]);
 
   useEffect(() => {
     if (optionSelected) {

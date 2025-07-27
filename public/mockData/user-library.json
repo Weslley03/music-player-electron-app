@@ -1,7 +1,7 @@
 {
   "albums": [
     {
-      "id": 11,
+      "id": "11",
       "img": "/assets/734-mc-kako.png",
       "title": "734",
       "description": "MC Kako",
@@ -11,7 +11,7 @@
   ],
   "artists": [
     {
-      "id": 22,
+      "id": "22",
       "img": "/assets/artist-pumapjl.png",
       "title": "Pumapjl",
       "createdAt": "2025-07-11T08:00:00Z",

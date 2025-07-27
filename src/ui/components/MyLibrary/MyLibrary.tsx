@@ -104,8 +104,8 @@ const MyLibrary = () => {
     );
   };
 
-  const directToSelected = (id: number) => {
-    navigate(`/view-card-selected/${id}`);
+  const directToSelected = (type: string, id: string) => {
+    navigate(`/view-card-selected/${type}/${id}`);
   };
 
   useEffect(() => {
@@ -229,7 +229,7 @@ const MyLibrary = () => {
               className={styles.cardOptions}
             >
               {(filteredCards ? filteredCards : cards)?.map(card => (
-                <div className={styles.cardOption} key={`${card.id}-${card.title.trim()}`} onClick={() => directToSelected(card.id)}>
+                <div className={styles.cardOption} key={`${card.id}-${card.title.trim()}`} onClick={() => directToSelected(card.type, card.id)}>
                   <CardOptionMyLibrary
                     key={`${card.id}-${card.title.trim()}`}
                     imgSrc={card.img}
