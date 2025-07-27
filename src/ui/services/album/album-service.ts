@@ -1,5 +1,5 @@
 import { handleError } from "../../helpers/error-handling-helper";
-import type { Album, AlbumsResponse } from "../../types/MyLibrary/album";
+import type { Album, AlbumsResponse } from "../../types/album-type";
 import api from "../api";
 
 export const getAlbumById = async (albumId: string): Promise<Album> => {

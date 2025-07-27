@@ -43,7 +43,7 @@ const HeaderGlobal = () => {
         </div>
         <div className={styles.userSection}>
           <RoundBottom>
-            <img className={styles.userImage} src={user?.imglogo} />
+            <img className={styles.userImage} src={user?.avatar} />
           </RoundBottom>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { handleError } from "../../helpers/error-handling-helper";
-import type { Artist, ArtistsResponse } from "../../types/MyLibrary/artist";
+import type { Artist, ArtistsResponse } from "../../types/artist-type";
 import api from "../api";
 
 export const getArtistById = async (artistId: string) => {

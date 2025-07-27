@@ -4,10 +4,10 @@ import colors from '../../utils/colors';
 import RoundBottom from '../RoundBottom/RoundBottom';
 import RoundedBottom from '../RoundedBottom/RoundedBottom';
 import styles from './MyLibrary.module.scss';
-import type { FilterOption } from '../../types/MyLibrary/filterOptionsType';
+import type { FilterOption } from '../../types/MyLibrary/filter-options-type';
 import CloseIcon from '../../icons/CloseIcon';
 import SearchIcon from '../../icons/SearchIcon';
-import type { CardOption } from '../../types/MyLibrary/Cards';
+import type { LibraryOption } from '../../types/MyLibrary/library-type';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
 import MinimizeIcon from '../../icons/MinimizeIcon';
 import ExtendIcon from '../../icons/ExtendIcon';
@@ -17,8 +17,8 @@ import { getUserLibrary } from '../../services/user/user-service';
 const MyLibrary = () => {
   const navigate = useNavigate();
 
-  const [cards, setCards] = useState<CardOption[] | null>(null);
-  const [filteredCards, setFilteredCards] = useState<CardOption[] | null>(null);
+  const [cards, setCards] = useState<LibraryOption[] | null>(null);
+  const [filteredCards, setFilteredCards] = useState<LibraryOption[] | null>(null);
 
   const [reducedUI, setReducedUI] = useState(false);
 

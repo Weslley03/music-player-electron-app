@@ -1,4 +1,4 @@
-import type { Music } from "../music";
+import type { Music } from "./music-type";
 
 export type Artist = {
   id: string;

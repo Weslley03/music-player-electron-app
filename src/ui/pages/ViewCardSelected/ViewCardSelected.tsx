@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import type { Album } from '../../types/MyLibrary/album';
-import type { Music } from '../../types/music';
+import type { Album } from '../../types/album-type';
+import type { Music } from '../../types/music-type';
 import styles from './ViewCardSelected.module.scss';
 import colors, { getDominantColorFromImage } from '../../utils/colors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { setPlayList, updateCurrentMusic } from '../../reducers/currentMusicReducer';
-import type { Artist } from '../../types/MyLibrary/artist';
+import type { Artist } from '../../types/artist-type';
 import { getAlbumById } from '../../services/album/album-service';
 import { getArtistById } from '../../services/artist/artist-service';
 

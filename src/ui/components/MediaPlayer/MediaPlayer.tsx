@@ -10,7 +10,7 @@ import colors from '../../utils/colors';
 import VolumeIcon from '../../icons/VolumeIcon';
 import VolumeOffIcon from '../../icons/VolumeOffIcon';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
-import type { CardType } from '../../types/MyLibrary/CardType';
+import type { CardType } from '../../types/MyLibrary/library-option-type';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { playNextMusic } from '../../reducers/currentMusicReducer';
 

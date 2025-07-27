@@ -1,6 +1,6 @@
 import type React from 'react';
 import styles from './CardOptionMyLibrary.module.scss';
-import type { CardType } from '../../types/MyLibrary/CardType';
+import type { CardType } from '../../types/MyLibrary/library-option-type';
 import { useState } from 'react';
 import colors from '../../utils/colors';
 
