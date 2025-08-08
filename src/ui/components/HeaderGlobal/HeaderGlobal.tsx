@@ -20,7 +20,7 @@ const HeaderGlobal = () => {
   //onMounted
   useEffect(() => {
     const getUser = async () => {
-      const user = await getUserInformations('12345678');
+      const user = await getUserInformations(import.meta.env.VITE_USER_ID);
       setUser(user);
     };
 
@@ -43,7 +43,7 @@ const HeaderGlobal = () => {
         </div>
         <div className={styles.userSection}>
           <RoundBottom>
-            <img className={styles.userImage} src={user?.avatar} />
+            <img className={styles.userImage} src={`data:image/jpeg;base64,${user?.avatar}`} />
           </RoundBottom>
         </div>
       </div>

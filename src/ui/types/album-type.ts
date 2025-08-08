@@ -9,7 +9,3 @@ export type Album = {
   type: 'album';
   musics: Music[];
 };
-
-export type AlbumsResponse = {
-  albums: Album[];
-};
