@@ -14,13 +14,11 @@ export const getUserInformations = async (userId: string): Promise<User> => {
   };
 };
 
-export const getUserLibrary = async (): Promise<LibraryOption[]> => {
+export const getUserLibrary = async (): Promise<LibraryOption> => {
   try {
-    const response = await apiLocal.get<ResponseApi<LibraryOption[]>>(`/library/by/${import.meta.env.USER_ID}`);
-    return response.data.response
-      .sort((a: LibraryOption, b: LibraryOption) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
+    const response = await apiLocal.get<ResponseApi<LibraryOption>>(`/library/by/${import.meta.env.USER_ID}`);
+    return response.data.response;
   } catch (err) {
-    return handleError<LibraryOption[]>('erro ao buscar biblioteca do usuário.', err, []);
+    return handleError<LibraryOption>('erro ao buscar biblioteca do usuário.', err, {} as LibraryOption);
   };
 };

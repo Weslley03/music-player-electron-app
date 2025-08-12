@@ -7,18 +7,24 @@ import styles from './MyLibrary.module.scss';
 import type { FilterOption } from '../../types/MyLibrary/filter-options-type';
 import CloseIcon from '../../icons/CloseIcon';
 import SearchIcon from '../../icons/SearchIcon';
-import type { LibraryOption } from '../../types/MyLibrary/library-type';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
 import MinimizeIcon from '../../icons/MinimizeIcon';
 import ExtendIcon from '../../icons/ExtendIcon';
 import { useNavigate } from 'react-router-dom';
 import { getUserLibrary } from '../../services/user/user-service';
+import type { Album } from '../../types/album-type';
+import type { Artist } from '../../types/artist-type';
+
+type AlbumWithType = Album & { type: "album" };
+type ArtistWithType = Artist & { type: "artist" };
+
+type CardItem = AlbumWithType | ArtistWithType;
 
 const MyLibrary = () => {
   const navigate = useNavigate();
 
-  const [cards, setCards] = useState<LibraryOption[] | null>(null);
-  const [filteredCards, setFilteredCards] = useState<LibraryOption[] | null>(null);
+  const [cards, setCards] = useState<CardItem[]>();
+  const [filteredCards, setFilteredCards] = useState<CardItem[] | null>(null);
 
   const [reducedUI, setReducedUI] = useState(false);
 
@@ -126,7 +132,9 @@ const MyLibrary = () => {
 
     if (search) {
       result = result.filter(card =>
-        card.title.toLowerCase().includes(search)
+        card.type == 'album'
+          ? card.title.toLowerCase().includes(search)
+          : card.name.toLowerCase().includes(search)
       );
     }
 
@@ -159,8 +167,19 @@ const MyLibrary = () => {
   //onMounted
   useEffect(() => {
     const getCardsOption = async () => {
-      const cards = await getUserLibrary();
-      setCards(cards);
+      const res = await getUserLibrary();
+      const albumsWithType: AlbumWithType[] = res.albums.map(album => ({
+        ...album,
+        type: "album"
+      }));
+
+      const artistsWithType: ArtistWithType[] = res.artists.map(artist => ({
+        ...artist,
+        type: "artist"
+      }));
+
+      const allItems: CardItem[] = [...albumsWithType, ...artistsWithType];
+      setCards(allItems);
     };
 
     getCardsOption();
@@ -228,19 +247,46 @@ const MyLibrary = () => {
             <div
               className={styles.cardOptions}
             >
-              {(filteredCards ? filteredCards : cards)?.map(card => (
-                <div className={styles.cardOption} key={`${card.id}-${card.title.trim()}`} onClick={() => directToSelected(card.type, card.id)}>
-                  <CardOptionMyLibrary
-                    key={`${card.id}-${card.title.trim()}`}
-                    imgSrc={card.img}
-                    title={card.title}
-                    description={card.description}
-                    type={card.type}
-                    hoverColor={reducedUI ? colors.dark200 : colors.dark400}
-                    reducedUI={reducedUI}
-                  />
-                </div>
-              ))}
+              {(filteredCards ?? cards)?.map(card => {
+                if (card.type === "album") {
+                  return (
+                    <div
+                      className={styles.cardOption}
+                      key={`${card.id}-${card.title.trim()}`}
+                      onClick={() => directToSelected(card.type, card.id)}
+                    >
+                      <CardOptionMyLibrary
+                        key={`${card.id}-${card.title.trim()}`}
+                        imgSrc={card.img}
+                        title={card.title}
+                        description={card.author}
+                        type={card.type}
+                        hoverColor={reducedUI ? colors.dark200 : colors.dark400}
+                        reducedUI={reducedUI}
+                      />
+                    </div>
+                  );
+                }
+
+                return (
+                  <div
+                    className={styles.cardOption}
+                    key={`${card.id}-${card.name.trim()}`}
+                    onClick={() => directToSelected(card.type, card.id)}
+                  >
+                    <CardOptionMyLibrary
+                      key={`${card.id}-${card.name.trim()}`}
+                      imgSrc={card.img}
+                      title={card.name}
+                      description={undefined}
+                      type={card.type}
+                      hoverColor={reducedUI ? colors.dark200 : colors.dark400}
+                      reducedUI={reducedUI}
+                    />
+                  </div>
+                );
+              })}
+
             </div>
           )
         }
