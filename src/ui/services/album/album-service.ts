@@ -1,15 +1,12 @@
 import { handleError } from "../../helpers/error-handling-helper";
-import type { Album, AlbumsResponse } from "../../types/album-type";
-import api from "../api";
+import type { Album } from "../../types/album-type";
+import type { ResponseApi } from "../../types/response-api-type";
+import { apiLocal } from "../api";
 
 export const getAlbumById = async (albumId: string): Promise<Album> => {
   try {
-    const response = await api.get<AlbumsResponse>('albums.json');
-
-    return response.data.albums.find(a => {
-      return a.id === albumId
-    }) ?? {} as Album;
-
+    const response = await apiLocal.get<ResponseApi<Album>>(`album/by/${albumId}`);
+    return response.data.response;
   } catch (err) {
     return handleError('Não foi possivél encontrar o álbum.', err, {} as Album);
   }

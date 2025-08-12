@@ -1,16 +1,9 @@
-import type { LibraryOptionType } from "./library-option-type";
+import type { Album } from "../album-type";
+import type { Artist } from "../artist-type";
 
 export interface LibraryOption {
-  id: string;
-  img: string;
-  title: string;
-  description?: string;
-  createdAt: string;
-  type: LibraryOptionType;
+  userId: string;
+  albums: Album[];
+  artists: Artist[];
 }
 
-export interface LibraryResponse {
-  albums: LibraryOption[];
-  artists: LibraryOption[];
-  playlist: LibraryOption[];
-}

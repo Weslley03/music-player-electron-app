@@ -1,0 +1,1 @@
+export type ResponseApi<T> = { message: string; status: number; response: T; };
