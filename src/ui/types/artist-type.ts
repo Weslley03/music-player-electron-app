@@ -1,4 +1,3 @@
-
 export type Artist = {
   id: string;
   img: string;

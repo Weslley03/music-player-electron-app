@@ -16,7 +16,7 @@ export const getUserInformations = async (userId: string): Promise<User> => {
 
 export const getUserLibrary = async (): Promise<LibraryOption> => {
   try {
-    const response = await apiLocal.get<ResponseApi<LibraryOption>>(`/library/by/${import.meta.env.USER_ID}`);
+    const response = await apiLocal.get<ResponseApi<LibraryOption>>(`/library/by/${import.meta.env.VITE_USER_ID}`);
     return response.data.response;
   } catch (err) {
     return handleError<LibraryOption>('erro ao buscar biblioteca do usuário.', err, {} as LibraryOption);

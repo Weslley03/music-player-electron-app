@@ -1,6 +1,6 @@
 import type React from 'react';
 import styles from './CardOptionMyLibrary.module.scss';
-import type { CardType } from '../../types/MyLibrary/library-option-type';
+import type { LibraryOptionType } from '../../types/MyLibrary/library-option-type';
 import { useState } from 'react';
 import colors from '../../utils/colors';
 
@@ -8,7 +8,7 @@ type Props = {
   imgSrc: string;
   title: string;
   description?: string;
-  type: CardType;
+  type: LibraryOptionType;
   hoverColor?: string;
   reducedUI: boolean;
 }
@@ -21,7 +21,7 @@ const CardOptionMyLibrary: React.FC<Props> = ({
   hoverColor = colors.dark400,
   reducedUI,
 }) => {
-  const cardTypeMap: Record<CardType, string> = {
+  const cardTypeMap: Record<LibraryOptionType, string> = {
     artist: 'Artista',
     album: 'Álbum',
     playlist: 'Playlist',
@@ -42,7 +42,7 @@ const CardOptionMyLibrary: React.FC<Props> = ({
     >
       <div>
         <img
-          src={imgSrc}
+          src={`data:image/jpeg;base64,${imgSrc}`}
           className={styles.img}
           style={
             reducedUI && isHovered

@@ -1,13 +1,10 @@
 export type Music = {
-  id: number;
+  id: string;
+  albumId: string;
+  artistId: string;
   img: string;
   title: string;
-  description: string;
-  createdAt: string;
+  author: string;
   src: string;
-  type: string;
-};
-
-export type MusicsResponse = {
-  musics: Music[];
+  createdAt: string;
 };

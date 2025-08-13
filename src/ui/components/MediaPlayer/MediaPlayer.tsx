@@ -10,7 +10,7 @@ import colors from '../../utils/colors';
 import VolumeIcon from '../../icons/VolumeIcon';
 import VolumeOffIcon from '../../icons/VolumeOffIcon';
 import CardOptionMyLibrary from '../CardOptionMyLibrary/CardOptionMyLibrary';
-import type { CardType } from '../../types/MyLibrary/library-option-type';
+import type { LibraryOptionType } from '../../types/MyLibrary/library-option-type';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { playNextMusic } from '../../reducers/currentMusicReducer';
 
@@ -157,7 +157,7 @@ const MediaPlayer = () => {
       <div className={styles.content}>
         <audio
           ref={audioRef}
-          src={currentMusic?.src}
+          src={`data:audio/mp3;base64,${currentMusic?.src}`}
           preload="metadata"
         />
 
@@ -167,8 +167,8 @@ const MediaPlayer = () => {
               key={`${currentMusic.id}-${currentMusic.title.trim()}`}
               imgSrc={currentMusic.img}
               title={currentMusic.title}
-              description={currentMusic.description}
-              type={currentMusic.type as CardType}
+              description={currentMusic.author}
+              type={'music' as LibraryOptionType}
               hoverColor=''
               reducedUI={false}
             />

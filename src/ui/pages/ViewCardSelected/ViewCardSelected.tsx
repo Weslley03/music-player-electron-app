@@ -7,15 +7,21 @@ import colors, { getDominantColorFromImage } from '../../utils/colors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { setPlayList, updateCurrentMusic } from '../../reducers/currentMusicReducer';
 import type { Artist } from '../../types/artist-type';
-import { getAlbumById } from '../../services/album/album-service';
 import { getArtistById } from '../../services/artist/artist-service';
+import { getMusicByAlbumId, getMusicByArtistId } from '../../services/music/music-service';
+import { getAlbumById } from '../../services/album/album-service';
+
+type AlbumWithType = Album & { type: "album" };
+type ArtistWithType = Artist & { type: "artist" };
+
+type CardItem = AlbumWithType | ArtistWithType;
 
 const ViewCardSelected = () => {
   const dispatch = useAppDispatch();
   const { currentMusic } = useAppSelector((state) => state.music);
 
   const { type, id } = useParams<{ type: string, id: string }>();
-  const [optionSelected, setOptionSelected] = useState<Album | Artist | null>(null);
+  const [optionSelected, setOptionSelected] = useState<CardItem | null>(null);
   const [musics, setMusics] = useState<Music[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -31,12 +37,13 @@ const ViewCardSelected = () => {
       case 'album': {
         const getAlbums = async () => {
           setLoading(true)
-          const response = await getAlbumById(id!);
+          const response = await getMusicByAlbumId(id!);
+          const album = await getAlbumById(id!);
 
-          if (response.id) {
-            setOptionSelected(response);
-            setMusics(response.musics);
-            dispatch(setPlayList(response.musics));
+          if (response) {
+            setOptionSelected(album as CardItem);
+            setMusics(response);
+            dispatch(setPlayList(response));
             setLoading(false)
           };
         };
@@ -48,12 +55,13 @@ const ViewCardSelected = () => {
       case 'artist': {
         const getArtists = async () => {
           setLoading(true)
-          const response = await getArtistById(id!);
+          const response = await getMusicByArtistId(id!);
+          const artist = await getArtistById(id!);
 
-          if (response.id) {
-            setOptionSelected(response);
-            setMusics(response.musics);
-            dispatch(setPlayList(response.musics));
+          if (response) {
+            setOptionSelected(artist as CardItem);
+            setMusics(response);
+            dispatch(setPlayList(response));
             setLoading(false)
           };
         };
@@ -78,20 +86,20 @@ const ViewCardSelected = () => {
     }
   }, [optionSelected]);
 
-  const optionSection = (albuma: Album | Artist) => {
+  const optionSection = (item: CardItem) => {
     return (
       <div>
         <div className={styles.albumInfo} style={{ backgroundColor: bgColor }}>
           <div className={styles.headerContent}>
             <img
               ref={imgRef}
-              src={albuma.img}
+              src={`data:image/jpeg;base64,${item.img}`}
               className={styles.albumCapa}
               crossOrigin="anonymous"
             />
             <div className={styles.text}>
-              <h2>{albuma.title}</h2>
-              <p>{albuma.description}</p>
+              <h2> {item.type === 'album' ? item.title : item.name} </h2>
+              <p> {item.type === 'album' ? item.author : ''} </p>
             </div>
           </div>
         </div>
@@ -108,7 +116,7 @@ const ViewCardSelected = () => {
                 <span> {index + 1} </span>
                 <div className={styles.author}>
                   <span className={styles.title}> {music.title} </span>
-                  <span className={styles.description}> {music.description} </span>
+                  <span className={styles.description}> {music.author} </span>
                 </div>
               </div>
             ))
@@ -125,7 +133,7 @@ const ViewCardSelected = () => {
       ) : optionSelected ? (
         optionSection(optionSelected)
       ) : (
-        <p className="not-found"> Álbum não encontrado. </p>
+        <p className="not-found"> não encontrado. </p>
       )}
     </div>
   );
