@@ -3,5 +3,6 @@ export type Album = {
   img: string;
   title: string;
   author: string;
+  liked: boolean;
   createdAt: string;
 };
