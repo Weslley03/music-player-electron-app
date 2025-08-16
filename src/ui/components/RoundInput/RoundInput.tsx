@@ -7,6 +7,8 @@ interface RoundInputProps {
   onChange: (value: string) => void;
   icon?: React.ReactNode;
   placeholder?: string;
+  showXIcon?: boolean;
+  type?: 'text' | 'password';
 };
 
 const RoundInput: React.FC<RoundInputProps> = ({
@@ -14,6 +16,8 @@ const RoundInput: React.FC<RoundInputProps> = ({
   placeholder,
   value,
   onChange,
+  showXIcon = true,
+  type = 'text',
 }) => {
 
   const displayXIcon = () => {
@@ -32,15 +36,17 @@ const RoundInput: React.FC<RoundInputProps> = ({
       <input
         className={styles.input}
         value={value}
-        type="text"
+        type={type}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         spellCheck="false"
         autoComplete="off"
       />
-      <div className={styles.XIcon} onClick={clearValue}>
-        {displayXIcon()}
-      </div>
+      {showXIcon && (
+        <div className={styles.XIcon} onClick={clearValue}>
+          {displayXIcon()}
+        </div>
+      )}
     </div>
   )
 }
