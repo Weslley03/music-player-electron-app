@@ -4,7 +4,3 @@ export type User = {
   email: string;
   avatar: string;
 };
-
-export type UsersResponse = {
-  users: User[];
-};
