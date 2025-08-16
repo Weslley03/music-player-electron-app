@@ -7,7 +7,15 @@ export type UserState = User & {
 type UserAction =
   { type: 'SET_USER', payload: UserState }
 
-export const userReducer = (state: UserState, action: UserAction) => {
+export const initialUserState: UserState = {
+  id: "",
+  name: "",
+  email: "",
+  avatar: "",
+  token: "",
+};
+
+export const userReducer = (state: UserState = initialUserState, action: UserAction) => {
   switch (action.type) {
     case ('SET_USER'): {
       return {
