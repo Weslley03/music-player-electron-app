@@ -5,7 +5,8 @@ export type UserState = User & {
 };
 
 type UserAction =
-  { type: 'SET_USER', payload: UserState }
+  | { type: 'SET_USER', payload: UserState }
+  | { type: 'SET_USER_TOKEN', payload: string }
 
 export const initialUserState: UserState = {
   id: "",
@@ -24,6 +25,13 @@ export const userReducer = (state: UserState = initialUserState, action: UserAct
       }
     }
 
+    case ('SET_USER_TOKEN'): {
+      return {
+        ...state,
+        token: action.payload,
+      }
+    }
+
     default: return state;
   }
 };
@@ -32,5 +40,12 @@ export const updateUser = (user: UserState): UserAction => {
   return {
     type: 'SET_USER',
     payload: user,
+  }
+};
+
+export const updateUserToken = (token: string): UserAction => {
+  return {
+    type: 'SET_USER_TOKEN',
+    payload: token,
   }
 };
