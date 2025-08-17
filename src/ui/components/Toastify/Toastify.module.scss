@@ -1,0 +1,54 @@
+.container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 8px;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease forwards, fadeOut 0.3s ease forwards 2s;
+}
+
+.message {
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+}
+
+.success {
+  background-color: #1b3a1a;
+}
+
+.error {
+  background-color: #4a1b1b;
+}
+
+.warning {
+  background-color: #b58900;
+}
+
+.info {
+  background-color: #1a3a4a;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+}

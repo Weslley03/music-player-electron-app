@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RoundInput from '../../components/RoundInput/RoundInput';
 import styles from './LoginPage.module.scss';
 import DefaultButton from '../../components/DefaultButton/DefaultButton';
 import { userLogin } from '../../services/user/user-service';
+import { useToast } from '../../context/ToastContext';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { updateUserToken } from '../../reducers/userReducer';
 
 const LoginPage = () => {
+  const { createToastify } = useToast();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  let redirectTimeoutId;
+
   const [loginFormData, setLoginFormData] = useState({
     email: '',
     password: '',
@@ -24,12 +33,21 @@ const LoginPage = () => {
     const response = await userLogin(loginFormData.email, loginFormData.password);
 
     if (!response.success) {
-      alert(response.message);
+      createToastify(response.message, 'error');
       return;
     }
 
-    alert('logado!')
+    createToastify('usuário logado com sucesso!', 'success');
+
+    setTimeout(() => {
+      dispatch(updateUserToken('123456789'));
+      navigate('/')
+    }, 2000)
   };
+
+  useEffect(() => {
+    return () => clearTimeout(redirectTimeoutId);
+  }, [redirectTimeoutId]);
 
   return (
     <div className={styles.container}>
