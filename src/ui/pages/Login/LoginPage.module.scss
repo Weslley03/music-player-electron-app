@@ -16,9 +16,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 400px;
   gap: 4px;
 }
 
+.inputSection > span {
+  font-size: 18px;
+}
+
 .buttonSection {
-  width: 140px;
+  width: 240px;
 }
