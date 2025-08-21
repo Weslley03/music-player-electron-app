@@ -1,31 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import HomeIcon from '../../icons/HomeIcon';
 import SearchIcon from '../../icons/SearchIcon';
 import RoundInput from '../RoundInput/RoundInput';
 import styles from './HeaderGlobal.module.scss';
 import RoundBottom from '../RoundBottom/RoundBottom';
-import type { User } from '../../types/user-type';
 import { useNavigate } from 'react-router-dom';
-import { getUserInformations } from '../../services/user/user-service';
+import { useAppSelector } from '../../hooks/redux-hooks';
 
 const HeaderGlobal = () => {
   const [search, setSearch] = useState('');
-  const [user, setUser] = useState<User>();
   const navigate = useNavigate();
+
+  const { avatar } = useAppSelector(state => state.user);
+
+  const redirectToProfile = () => {
+    navigate('/profile');
+  };
 
   const redirectToHome = () => {
     navigate('/');
   };
-
-  //onMounted
-  useEffect(() => {
-    const getUser = async () => {
-      const user = await getUserInformations(import.meta.env.VITE_USER_ID);
-      setUser(user);
-    };
-
-    getUser();
-  }, []);
 
   return (
     <>
@@ -42,8 +36,8 @@ const HeaderGlobal = () => {
           />
         </div>
         <div className={styles.userSection}>
-          <RoundBottom>
-            <img className={styles.userImage} src={`data:image/jpeg;base64,${user?.avatar}`} />
+          <RoundBottom onClick={() => redirectToProfile()}>
+            <img className={styles.userImage} src={`data:image/jpeg;base64,${avatar}`} />
           </RoundBottom>
         </div>
       </div>

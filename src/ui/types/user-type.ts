@@ -3,8 +3,6 @@ export type User = {
   name: string;
   email: string;
   avatar: string;
-};
-
-export type UsersResponse = {
-  users: User[];
+  token: string;
+  firstAccess: boolean;
 };
