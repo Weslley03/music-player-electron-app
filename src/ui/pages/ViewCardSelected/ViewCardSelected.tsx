@@ -41,7 +41,7 @@ const ViewCardSelected = () => {
           const album = await getAlbumById(id!);
 
           if (response) {
-            setOptionSelected(album as CardItem);
+            setOptionSelected({ ...album, type: 'album' });
             setMusics(response);
             dispatch(setPlayList(response));
             setLoading(false)
@@ -59,7 +59,7 @@ const ViewCardSelected = () => {
           const artist = await getArtistById(id!);
 
           if (response) {
-            setOptionSelected(artist as CardItem);
+            setOptionSelected({ ...artist, type: 'artist' });
             setMusics(response);
             dispatch(setPlayList(response));
             setLoading(false)
