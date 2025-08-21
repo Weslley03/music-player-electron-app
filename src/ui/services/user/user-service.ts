@@ -7,6 +7,8 @@ import type { ResponseApi } from "../../types/response-api-type";
 type ResponseAuthDTO = {
   success: boolean;
   message: string;
+  token?: string;
+  user: User;
 };
 
 export const getUserInformations = async (userId: string): Promise<User> => {
