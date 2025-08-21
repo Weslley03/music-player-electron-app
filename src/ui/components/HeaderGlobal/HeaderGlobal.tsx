@@ -13,6 +13,10 @@ const HeaderGlobal = () => {
 
   const { avatar } = useAppSelector(state => state.user);
 
+  const redirectToProfile = () => {
+    navigate('/profile');
+  };
+
   const redirectToHome = () => {
     navigate('/');
   };
@@ -32,7 +36,7 @@ const HeaderGlobal = () => {
           />
         </div>
         <div className={styles.userSection}>
-          <RoundBottom>
+          <RoundBottom onClick={() => redirectToProfile()}>
             <img className={styles.userImage} src={`data:image/jpeg;base64,${avatar}`} />
           </RoundBottom>
         </div>

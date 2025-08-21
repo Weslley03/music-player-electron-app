@@ -5,6 +5,7 @@ import GenericLayout from "../layouts/GenericLayout";
 import PrivateRoute from "./PrivateRoute";
 import LoginPage from "../pages/Login/LoginPage";
 import WelcomePage from "../pages/Welcome/WelcomePage";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
         ],
       },
       { path: "/welcome", element: <WelcomePage /> },
+      { path: "/profile", element: <ProfilePage /> },
     ],
   },
   { path: "/login", element: <LoginPage /> },
