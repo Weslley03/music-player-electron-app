@@ -6,12 +6,14 @@ import { userLogin } from '../../services/user/user-service';
 import { useToast } from '../../context/ToastContext';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux-hooks';
-import { updateUserToken } from '../../reducers/userReducer';
+import { updateUser, updateUserToken } from '../../reducers/userReducer';
 
 const LoginPage = () => {
   const { createToastify } = useToast();
   const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
+
   let redirectTimeoutId;
 
   const [loginFormData, setLoginFormData] = useState({
@@ -32,7 +34,7 @@ const LoginPage = () => {
 
     const response = await userLogin(loginFormData.email, loginFormData.password);
 
-    if (!response.success) {
+    if (!response.success || !response.user) {
       createToastify(response.message, 'error');
       return;
     }
@@ -40,7 +42,15 @@ const LoginPage = () => {
     createToastify('usuário logado com sucesso!', 'success');
 
     setTimeout(() => {
-      dispatch(updateUserToken('123456789'));
+      dispatch(updateUserToken(response.token ?? ''));
+      dispatch(updateUser(response.user));
+      console.log('user', response.user)
+
+      if (response.user.firstAccess) {
+        navigate('/welcome')
+        return;
+      }
+
       navigate('/')
     }, 2000)
   };
