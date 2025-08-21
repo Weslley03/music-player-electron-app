@@ -4,6 +4,7 @@ import ViewCardSelected from "../pages/ViewCardSelected/ViewCardSelected";
 import GenericLayout from "../layouts/GenericLayout";
 import PrivateRoute from "./PrivateRoute";
 import LoginPage from "../pages/Login/LoginPage";
+import WelcomePage from "../pages/Welcome/WelcomePage";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
           { path: "/view-card-selected/:type/:id", element: <ViewCardSelected /> },
         ],
       },
+      { path: "/welcome", element: <WelcomePage /> },
     ],
   },
   { path: "/login", element: <LoginPage /> },
