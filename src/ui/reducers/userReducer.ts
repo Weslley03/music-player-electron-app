@@ -1,8 +1,6 @@
 import type { User } from "../types/user-type";
 
-export type UserState = User & {
-  token?: string; // update here
-};
+export type UserState = User;
 
 type UserAction =
   | { type: 'SET_USER', payload: UserState }
@@ -14,6 +12,7 @@ export const initialUserState: UserState = {
   email: "",
   avatar: "",
   token: "",
+  firstAccess: true,
 };
 
 export const userReducer = (state: UserState = initialUserState, action: UserAction) => {
