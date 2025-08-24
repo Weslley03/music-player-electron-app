@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserLibrary } from '../../services/user/user-service';
 import type { Album } from '../../types/album-type';
 import type { Artist } from '../../types/artist-type';
+import Skeleton from '../Skeleton/Skeleton';
 
 type AlbumWithType = Album & { type: "album" };
 type ArtistWithType = Artist & { type: "artist" };
@@ -26,6 +27,7 @@ const MyLibrary = () => {
   const [cards, setCards] = useState<CardItem[]>();
   const [filteredCards, setFilteredCards] = useState<CardItem[] | null>(null);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [reducedUI, setReducedUI] = useState(false);
 
   /* control search input visibility */
@@ -182,6 +184,7 @@ const MyLibrary = () => {
       setCards(allItems);
     };
 
+    setIsLoading(false);
     getCardsOption();
   }, []);
 
@@ -244,52 +247,58 @@ const MyLibrary = () => {
 
         {
           (cards || filteredCards) && (
-            <div
-              className={styles.cardOptions}
-            >
-              {(filteredCards ?? cards)?.map(card => {
-                if (card.type === "album") {
+            <div className={styles.cardOptions}>
+              {isLoading ? (
+                Array.from({ length: 3 }).map((_, index) => (
+                  <div key={index} className={styles.cardOption}>
+                    <Skeleton width="180px" height="150px" borderRadius="8px" />
+                  </div>
+                ))
+              ) : (
+                (filteredCards ?? cards)?.map(card => {
+                  if (card.type === "album") {
+                    return (
+                      <div
+                        className={styles.cardOption}
+                        key={`${card.id}-${card.title.trim()}`}
+                        onClick={() => directToSelected(card.type, card.id)}
+                      >
+                        <CardOptionMyLibrary
+                          key={`${card.id}-${card.title.trim()}`}
+                          imgSrc={card.img}
+                          title={card.title}
+                          description={card.author}
+                          type={card.type}
+                          hoverColor={reducedUI ? colors.dark200 : colors.dark400}
+                          reducedUI={reducedUI}
+                        />
+                      </div>
+                    );
+                  }
+
                   return (
                     <div
                       className={styles.cardOption}
-                      key={`${card.id}-${card.title.trim()}`}
+                      key={`${card.id}-${card.name.trim()}`}
                       onClick={() => directToSelected(card.type, card.id)}
                     >
                       <CardOptionMyLibrary
-                        key={`${card.id}-${card.title.trim()}`}
+                        key={`${card.id}-${card.name.trim()}`}
                         imgSrc={card.img}
-                        title={card.title}
-                        description={card.author}
+                        title={card.name}
+                        description={undefined}
                         type={card.type}
                         hoverColor={reducedUI ? colors.dark200 : colors.dark400}
                         reducedUI={reducedUI}
                       />
                     </div>
                   );
-                }
-
-                return (
-                  <div
-                    className={styles.cardOption}
-                    key={`${card.id}-${card.name.trim()}`}
-                    onClick={() => directToSelected(card.type, card.id)}
-                  >
-                    <CardOptionMyLibrary
-                      key={`${card.id}-${card.name.trim()}`}
-                      imgSrc={card.img}
-                      title={card.name}
-                      description={undefined}
-                      type={card.type}
-                      hoverColor={reducedUI ? colors.dark200 : colors.dark400}
-                      reducedUI={reducedUI}
-                    />
-                  </div>
-                );
-              })}
-
+                })
+              )}
             </div>
           )
         }
+
       </div>
     </div >
   );

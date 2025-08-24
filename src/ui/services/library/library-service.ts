@@ -17,3 +17,12 @@ export const addArtistToLibrary = async (userId: string, artistsIds: string[]) =
     return handleError('Não foi possivél encontrar o artista.', err, []);
   }
 };
+
+export const getFeedByUserId = async (userId: string): Promise<LibraryOption> => {
+  try {
+    const response = await apiLocal.get<ResponseApi<LibraryOption>>(`/library/feed/${userId}`);
+    return response.data.response;
+  } catch (err) {
+    return handleError('Não foi possivél encontrar o feed do usuário.', err, {} as LibraryOption);
+  }
+};
