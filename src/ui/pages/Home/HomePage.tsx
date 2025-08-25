@@ -6,7 +6,10 @@ import type { Artist } from '../../types/artist-type';
 import { getFeedByUserId } from '../../services/library/library-service';
 import { useAppSelector } from '../../hooks/redux-hooks';
 
-type CardItem = Album | Artist;
+type AlbumWithType = Album & { type: "album" };
+type ArtistWithType = Artist & { type: "artist" };
+
+type CardItem = AlbumWithType | ArtistWithType;
 
 const HomePage = () => {
   const [cards, setCards] = useState<CardItem[]>([]);
@@ -15,7 +18,17 @@ const HomePage = () => {
   useEffect(() => {
     const getCardsOptions = async () => {
       const res = await getFeedByUserId(id);
-      const allItems: CardItem[] = [...res.albums, ...res.artists];
+      const albumsWithType: AlbumWithType[] = res.albums.map(album => ({
+        ...album,
+        type: "album"
+      }));
+
+      const artistsWithType: ArtistWithType[] = res.artists.map(artist => ({
+        ...artist,
+        type: "artist"
+      }));
+
+      const allItems: CardItem[] = [...albumsWithType, ...artistsWithType];
       setCards(allItems);
     };
 
