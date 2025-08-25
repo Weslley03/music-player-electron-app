@@ -11,6 +11,8 @@ app.on('ready', () => {
     }
   });
 
+  mainWindow.setMenu(null);
+
   const isDev = process.env.NODE_ENV === 'development';
 
   if (isDev) {
